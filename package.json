@@ -1,0 +1,29 @@
+{
+  "name": "fsnap",
+  "version": "1.0.0",
+  "description": "Snapshot and compare the target directory.",
+  "scripts": {
+    "test": "tap test/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/electron-utils/fsnap.git"
+  },
+  "keywords": [
+    "node",
+    "path"
+  ],
+  "author": "jwu",
+  "license": "MIT",
+  "bugs": {
+    "url": "http://github.com/electron-utils/fsnap/issues"
+  },
+  "homepage": "https://github.com/electron-utils/fsnap",
+  "dependencies": {
+    "globby": "^6.1.0"
+  },
+  "devDependencies": {
+    "fs-jetpack": "^0.13.3",
+    "tap": "^10.3.0"
+  }
+}
