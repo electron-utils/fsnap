@@ -18,16 +18,21 @@ npm install --save fsnap
 ```javascript
 const fsnap = require('fsnap');
 
+let s1 = fsnap.create(path);
+let s2 = fsnap.create(path);
+let result = fsnap.diff(s1, s2);
+
 // do something...
+console.log(result.delets);
+console.log(result.changes);
+console.log(result.creates);
 ```
 
 ## API Reference
 
 ### Methods
 
-### fsnap.create(path)
-
-### fsnap.create(path)
+### fsnap.create(src, opts)
 
 ### fsnap.compare(s1, s2)
 
