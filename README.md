@@ -1,7 +1,7 @@
 # fsnap
 
 [![Linux Build Status](https://travis-ci.org/electron-utils/fsnap.svg?branch=master)](https://travis-ci.org/electron-utils/fsnap)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/i80hkk2bea8xbv9j?svg=true)](https://ci.appveyor.com/project/jwu/fsnap)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/0ebl8wdrt9wwmhcp?svg=true)](https://ci.appveyor.com/project/jwu/fsnap)
 [![Dependency Status](https://david-dm.org/electron-utils/fsnap.svg)](https://david-dm.org/electron-utils/fsnap)
 [![devDependency Status](https://david-dm.org/electron-utils/fsnap/dev-status.svg)](https://david-dm.org/electron-utils/fsnap#info=devDependencies)
 
