@@ -8,19 +8,11 @@ let fsnap = {};
 
 /**
  * @method create
- * @param {string} path
+ * @param {string|Array} patterns
  * @param {object} opts
  */
-fsnap.create = function (src, opts = {}) {
-  if (Array.isArray(src)) {
-    src = src.map(p => {
-      return `${p}/**/*`;
-    });
-  } else {
-    src = `${src}/**/*`;
-  }
-
-  let paths = globby.sync(src, opts);
+fsnap.create = function (patterns, opts = {}) {
+  let paths = globby.sync(patterns, opts);
   let snapshot = {};
 
   paths.forEach(p => {
@@ -43,8 +35,10 @@ fsnap.create = function (src, opts = {}) {
 
 /**
  * @method diff
- * @param {string} path
+ * @param {object} s1 - first snapshot
+ * @param {object} s2 - second snapshot
  * @param {object} opts
+ * @param {object} opts.simplify - simplify the results by ignore the changed files under the directory
  */
 fsnap.diff = function (s1, s2) {
   let result = {
