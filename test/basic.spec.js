@@ -4,7 +4,10 @@ const tap = require('tap');
 const fs = require('fs');
 const jetpack = require('fs-jetpack');
 const os = require('os');
+const {normalize} = require('path');
 const fsnap = require('../index');
+
+let pnorm = normalize;
 
 let tmp = `${os.tmpdir()}/fsnap`;
 jetpack.dir(tmp);
@@ -25,29 +28,29 @@ tap.test('fsnap', t => {
     let s1 = fsnap.create(pattern);
 
     t.deepEqual(Object.keys(s1), [
-      `${testdata}/bar`,
-      `${testdata}/bar/bar-01`,
-      `${testdata}/bar/bar-01/foobar.js`,
-      `${testdata}/bar/bar-02`,
-      `${testdata}/bar/bar-02/foobar.js`,
-      `${testdata}/bar/bar-03`,
-      `${testdata}/bar/bar-03/foobar.js`,
-      `${testdata}/bar/foobar.js`,
-      `${testdata}/foo`,
-      `${testdata}/foo-bar`,
-      `${testdata}/foo-bar.meta`,
-      `${testdata}/foo-bar/foo-01.js`,
-      `${testdata}/foo-bar/foo-02.js`,
-      `${testdata}/foo-bar/foo-03.js`,
-      `${testdata}/foo/foo-01`,
-      `${testdata}/foo/foo-01/foobar.js`,
-      `${testdata}/foo/foo-02`,
-      `${testdata}/foo/foo-02/foobar.js`,
-      `${testdata}/foo/foo-03`,
-      `${testdata}/foo/foo-03/foobar.js`,
-      `${testdata}/foo/foobar.js`,
-      `${testdata}/foobar.js`,
-      `${testdata}/foobar.js.meta`,
+      pnorm(`${testdata}/bar`),
+      pnorm(`${testdata}/bar/bar-01`),
+      pnorm(`${testdata}/bar/bar-01/foobar.js`),
+      pnorm(`${testdata}/bar/bar-02`),
+      pnorm(`${testdata}/bar/bar-02/foobar.js`),
+      pnorm(`${testdata}/bar/bar-03`),
+      pnorm(`${testdata}/bar/bar-03/foobar.js`),
+      pnorm(`${testdata}/bar/foobar.js`),
+      pnorm(`${testdata}/foo`),
+      pnorm(`${testdata}/foo-bar`),
+      pnorm(`${testdata}/foo-bar.meta`),
+      pnorm(`${testdata}/foo-bar/foo-01.js`),
+      pnorm(`${testdata}/foo-bar/foo-02.js`),
+      pnorm(`${testdata}/foo-bar/foo-03.js`),
+      pnorm(`${testdata}/foo/foo-01`),
+      pnorm(`${testdata}/foo/foo-01/foobar.js`),
+      pnorm(`${testdata}/foo/foo-02`),
+      pnorm(`${testdata}/foo/foo-02/foobar.js`),
+      pnorm(`${testdata}/foo/foo-03`),
+      pnorm(`${testdata}/foo/foo-03/foobar.js`),
+      pnorm(`${testdata}/foo/foobar.js`),
+      pnorm(`${testdata}/foobar.js`),
+      pnorm(`${testdata}/foobar.js.meta`),
     ]);
 
     t.end();
@@ -60,20 +63,20 @@ tap.test('fsnap', t => {
     ]);
 
     t.deepEqual(Object.keys(s1), [
-      `${testdata}/bar/bar-01`,
-      `${testdata}/bar/bar-01/foobar.js`,
-      `${testdata}/bar/bar-02`,
-      `${testdata}/bar/bar-02/foobar.js`,
-      `${testdata}/bar/bar-03`,
-      `${testdata}/bar/bar-03/foobar.js`,
-      `${testdata}/bar/foobar.js`,
-      `${testdata}/foo/foo-01`,
-      `${testdata}/foo/foo-01/foobar.js`,
-      `${testdata}/foo/foo-02`,
-      `${testdata}/foo/foo-02/foobar.js`,
-      `${testdata}/foo/foo-03`,
-      `${testdata}/foo/foo-03/foobar.js`,
-      `${testdata}/foo/foobar.js`,
+      pnorm(`${testdata}/bar/bar-01`),
+      pnorm(`${testdata}/bar/bar-01/foobar.js`),
+      pnorm(`${testdata}/bar/bar-02`),
+      pnorm(`${testdata}/bar/bar-02/foobar.js`),
+      pnorm(`${testdata}/bar/bar-03`),
+      pnorm(`${testdata}/bar/bar-03/foobar.js`),
+      pnorm(`${testdata}/bar/foobar.js`),
+      pnorm(`${testdata}/foo/foo-01`),
+      pnorm(`${testdata}/foo/foo-01/foobar.js`),
+      pnorm(`${testdata}/foo/foo-02`),
+      pnorm(`${testdata}/foo/foo-02/foobar.js`),
+      pnorm(`${testdata}/foo/foo-03`),
+      pnorm(`${testdata}/foo/foo-03/foobar.js`),
+      pnorm(`${testdata}/foo/foobar.js`),
     ]);
 
     t.end();
@@ -91,8 +94,8 @@ tap.test('fsnap', t => {
         deletes: [],
         changes: [],
         creates: [
-          `${testdata}/foo/foo-01/foobar-new.js`,
-          `${testdata}/foo/foobar-new.js`,
+          pnorm(`${testdata}/foo/foo-01/foobar-new.js`),
+          pnorm(`${testdata}/foo/foobar-new.js`),
         ]
       });
 
@@ -110,8 +113,8 @@ tap.test('fsnap', t => {
         deletes: [],
         changes: [],
         creates: [
-          `${testdata}/foo-new`,
-          `${testdata}/foo/foo-01-new`,
+          pnorm(`${testdata}/foo-new`),
+          pnorm(`${testdata}/foo/foo-01-new`),
         ]
       });
 
@@ -130,8 +133,8 @@ tap.test('fsnap', t => {
         creates: [],
         changes: [],
         deletes: [
-          `${testdata}/foo/foo-01/foobar.js`,
-          `${testdata}/foo/foobar.js`,
+          pnorm(`${testdata}/foo/foo-01/foobar.js`),
+          pnorm(`${testdata}/foo/foobar.js`),
         ]
       });
 
@@ -149,16 +152,16 @@ tap.test('fsnap', t => {
         creates: [],
         changes: [],
         deletes: [
-          `${testdata}/bar`,
-          `${testdata}/bar/bar-01`,
-          `${testdata}/bar/bar-01/foobar.js`,
-          `${testdata}/bar/bar-02`,
-          `${testdata}/bar/bar-02/foobar.js`,
-          `${testdata}/bar/bar-03`,
-          `${testdata}/bar/bar-03/foobar.js`,
-          `${testdata}/bar/foobar.js`,
-          `${testdata}/foo/foo-01`,
-          `${testdata}/foo/foo-01/foobar.js`,
+          pnorm(`${testdata}/bar`),
+          pnorm(`${testdata}/bar/bar-01`),
+          pnorm(`${testdata}/bar/bar-01/foobar.js`),
+          pnorm(`${testdata}/bar/bar-02`),
+          pnorm(`${testdata}/bar/bar-02/foobar.js`),
+          pnorm(`${testdata}/bar/bar-03`),
+          pnorm(`${testdata}/bar/bar-03/foobar.js`),
+          pnorm(`${testdata}/bar/foobar.js`),
+          pnorm(`${testdata}/foo/foo-01`),
+          pnorm(`${testdata}/foo/foo-01/foobar.js`),
         ]
       });
 
@@ -177,15 +180,15 @@ tap.test('fsnap', t => {
       t.deepEqual(result, {
         changes: [],
         creates: [
-          `${testdata}/bar/bar-01/foobar-rename.js`,
-          `${testdata}/bar/bar-02/foobar-rename.js`,
-          `${testdata}/foo/foobar-rename.js`,
+          pnorm(`${testdata}/bar/bar-01/foobar-rename.js`),
+          pnorm(`${testdata}/bar/bar-02/foobar-rename.js`),
+          pnorm(`${testdata}/foo/foobar-rename.js`),
         ],
         deletes: [
-          `${testdata}/foo/foo-01/foobar.js`,
-          `${testdata}/foo/foo-02/foobar.js`,
-          `${testdata}/foo/foo-03/foobar.js`,
-          `${testdata}/foo/foobar.js`,
+          pnorm(`${testdata}/foo/foo-01/foobar.js`),
+          pnorm(`${testdata}/foo/foo-02/foobar.js`),
+          pnorm(`${testdata}/foo/foo-03/foobar.js`),
+          pnorm(`${testdata}/foo/foobar.js`),
         ]
       });
 
@@ -202,16 +205,16 @@ tap.test('fsnap', t => {
       t.deepEqual(result, {
         changes: [],
         creates: [
-          `${testdata}/bar/bar-04`,
-          `${testdata}/bar/bar-04/bar-02`,
-          `${testdata}/bar/bar-04/bar-02/foobar.js`,
-          `${testdata}/bar/bar-04/foobar.js`,
+          pnorm(`${testdata}/bar/bar-04`),
+          pnorm(`${testdata}/bar/bar-04/bar-02`),
+          pnorm(`${testdata}/bar/bar-04/bar-02/foobar.js`),
+          pnorm(`${testdata}/bar/bar-04/foobar.js`),
         ],
         deletes: [
-          `${testdata}/foo/foo-01`,
-          `${testdata}/foo/foo-01/foobar.js`,
-          `${testdata}/foo/foo-02`,
-          `${testdata}/foo/foo-02/foobar.js`,
+          pnorm(`${testdata}/foo/foo-01`),
+          pnorm(`${testdata}/foo/foo-01/foobar.js`),
+          pnorm(`${testdata}/foo/foo-02`),
+          pnorm(`${testdata}/foo/foo-02/foobar.js`),
         ]
       });
 
@@ -230,11 +233,11 @@ tap.test('fsnap', t => {
         let result = fsnap.diff(s1, s2);
         t.deepEqual(result, {
           changes: [
-            `${testdata}/foo/foo-02/foobar.js`,
-            `${testdata}/foo/foobar.js`,
+            pnorm(`${testdata}/foo/foo-02/foobar.js`),
+            pnorm(`${testdata}/foo/foobar.js`),
           ],
           creates: [
-            `${testdata}/bar/bar-01/foobar-new.js`,
+            pnorm(`${testdata}/bar/bar-01/foobar-new.js`),
           ],
           deletes: []
         });
@@ -255,7 +258,7 @@ tap.test('fsnap', t => {
         changes: [],
         creates: [],
         deletes: [
-          `${testdata}/foo/foobar.js`,
+          pnorm(`${testdata}/foo/foobar.js`),
         ]
       });
 
@@ -272,7 +275,7 @@ tap.test('fsnap', t => {
         let result = fsnap.diff(s1, s2);
         t.deepEqual(result, {
           changes: [
-            `${testdata}/foobar.js`,
+            pnorm(`${testdata}/foobar.js`),
           ],
           creates: [],
           deletes: []
@@ -293,8 +296,8 @@ tap.test('fsnap', t => {
         changes: [],
         creates: [],
         deletes: [
-          `${testdata}/foobar.js`,
-          `${testdata}/foobar.js.meta`,
+          pnorm(`${testdata}/foobar.js`),
+          pnorm(`${testdata}/foobar.js.meta`),
         ]
       });
 
@@ -312,11 +315,11 @@ tap.test('fsnap', t => {
         changes: [],
         creates: [],
         deletes: [
-          `${testdata}/foo-bar`,
-          `${testdata}/foo-bar.meta`,
-          `${testdata}/foo-bar/foo-01.js`,
-          `${testdata}/foo-bar/foo-02.js`,
-          `${testdata}/foo-bar/foo-03.js`,
+          pnorm(`${testdata}/foo-bar`),
+          pnorm(`${testdata}/foo-bar.meta`),
+          pnorm(`${testdata}/foo-bar/foo-01.js`),
+          pnorm(`${testdata}/foo-bar/foo-02.js`),
+          pnorm(`${testdata}/foo-bar/foo-03.js`),
         ]
       });
 
@@ -345,15 +348,15 @@ tap.test('fsnap', t => {
         let result = fsnap.diff(s1, s2);
         t.deepEqual(result, {
           changes: [
-            `${testdata}/foo/foo-02/foobar.js`,
+            pnorm(`${testdata}/foo/foo-02/foobar.js`),
           ],
           creates: [
-            `${testdata}/bar/bar-01/foobar-new.js`,
+            pnorm(`${testdata}/bar/bar-01/foobar-new.js`),
           ],
           deletes: [
-            `${testdata}/foo/foo-01/foobar.js`,
-            `${testdata}/foo/foo-03/foobar.js`,
-            `${testdata}/foo/foobar.js`,
+            pnorm(`${testdata}/foo/foo-01/foobar.js`),
+            pnorm(`${testdata}/foo/foo-03/foobar.js`),
+            pnorm(`${testdata}/foo/foobar.js`),
           ]
         });
 
@@ -377,32 +380,32 @@ tap.test('fsnap', t => {
         t.deepEqual(result, {
           changes: [],
           creates: [
-            `${testdata}/bar-new`,
-            `${testdata}/bar-new/foo-02`,
-            `${testdata}/bar-new/foo-02/foobar.js`,
-            `${testdata}/bar-new/foo-03`,
-            `${testdata}/bar-new/foo-03/foobar.js`,
-            `${testdata}/bar-new/foobar.js`,
-            `${testdata}/foo-new`,
-            `${testdata}/foo-new/foo-01`,
+            pnorm(`${testdata}/bar-new`),
+            pnorm(`${testdata}/bar-new/foo-02`),
+            pnorm(`${testdata}/bar-new/foo-02/foobar.js`),
+            pnorm(`${testdata}/bar-new/foo-03`),
+            pnorm(`${testdata}/bar-new/foo-03/foobar.js`),
+            pnorm(`${testdata}/bar-new/foobar.js`),
+            pnorm(`${testdata}/foo-new`),
+            pnorm(`${testdata}/foo-new/foo-01`),
           ],
           deletes: [
-            `${testdata}/bar`,
-            `${testdata}/bar/bar-01`,
-            `${testdata}/bar/bar-01/foobar.js`,
-            `${testdata}/bar/bar-02`,
-            `${testdata}/bar/bar-02/foobar.js`,
-            `${testdata}/bar/bar-03`,
-            `${testdata}/bar/bar-03/foobar.js`,
-            `${testdata}/bar/foobar.js`,
-            `${testdata}/foo`,
-            `${testdata}/foo/foo-01`,
-            `${testdata}/foo/foo-01/foobar.js`,
-            `${testdata}/foo/foo-02`,
-            `${testdata}/foo/foo-02/foobar.js`,
-            `${testdata}/foo/foo-03`,
-            `${testdata}/foo/foo-03/foobar.js`,
-            `${testdata}/foo/foobar.js`,
+            pnorm(`${testdata}/bar`),
+            pnorm(`${testdata}/bar/bar-01`),
+            pnorm(`${testdata}/bar/bar-01/foobar.js`),
+            pnorm(`${testdata}/bar/bar-02`),
+            pnorm(`${testdata}/bar/bar-02/foobar.js`),
+            pnorm(`${testdata}/bar/bar-03`),
+            pnorm(`${testdata}/bar/bar-03/foobar.js`),
+            pnorm(`${testdata}/bar/foobar.js`),
+            pnorm(`${testdata}/foo`),
+            pnorm(`${testdata}/foo/foo-01`),
+            pnorm(`${testdata}/foo/foo-01/foobar.js`),
+            pnorm(`${testdata}/foo/foo-02`),
+            pnorm(`${testdata}/foo/foo-02/foobar.js`),
+            pnorm(`${testdata}/foo/foo-03`),
+            pnorm(`${testdata}/foo/foo-03/foobar.js`),
+            pnorm(`${testdata}/foo/foobar.js`),
           ]
         });
 
@@ -428,10 +431,10 @@ tap.test('fsnap', t => {
       t.deepEqual(result, {
         changes: [],
         creates: [
-          `${testdata}/bar/bar-01/foobar-rename.js`,
+          pnorm(`${testdata}/bar/bar-01/foobar-rename.js`),
         ],
         deletes: [
-          `${testdata}/foo/foo-01/foobar.js`,
+          pnorm(`${testdata}/foo/foo-01/foobar.js`),
         ]
       });
 
