@@ -5,7 +5,7 @@
 [![Dependency Status](https://david-dm.org/electron-utils/fsnap.svg)](https://david-dm.org/electron-utils/fsnap)
 [![devDependency Status](https://david-dm.org/electron-utils/fsnap/dev-status.svg)](https://david-dm.org/electron-utils/fsnap#info=devDependencies)
 
-Improved path module.
+Diff filesystem snapshot results. Useful for file watch system.
 
 ## Install
 
