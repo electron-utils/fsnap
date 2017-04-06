@@ -39,7 +39,7 @@ console.log(result.creates);
 
 create snapshot from the given patterns.
 
-### fsnap.compare(s1, s2)
+### fsnap.diff(s1, s2)
 
   - `s1` object - snapshot 1
   - `s2` object - snapshot 2
@@ -49,6 +49,12 @@ Returns `object`
   - `deletes` array - path list of deleted files and directories.
   - `creates` array - path list of created files and directories.
   - `chagnes` array - path list of changed files and directories.
+
+### fsnap.simplify(result)
+
+  - `result` object - the result of `fsnap.diff`
+
+Simplify the diff result by remove files contains in the directory in the same result.
 
 ## License
 

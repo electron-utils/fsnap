@@ -444,5 +444,65 @@ tap.test('fsnap', t => {
     t.end();
   });
 
+  t.test('fsnap.simplify', t => {
+    let result = fsnap.simplify({
+      changes: [],
+      creates: [
+        pnorm(`${testdata}/bar`),
+        pnorm(`${testdata}/bar/bar-01`),
+        pnorm(`${testdata}/bar/bar-01/foobar.js`),
+        pnorm(`${testdata}/bar/bar-02`),
+        pnorm(`${testdata}/bar/bar-02/foobar.js`),
+        pnorm(`${testdata}/bar/bar-03`),
+        pnorm(`${testdata}/bar/bar-03/foobar.js`),
+        pnorm(`${testdata}/bar/foobar.js`),
+        pnorm(`${testdata}/foo`),
+        pnorm(`${testdata}/foo-bar`),
+        pnorm(`${testdata}/foo-bar.meta`),
+        pnorm(`${testdata}/foo-bar/foo-01.js`),
+        pnorm(`${testdata}/foo-bar/foo-02.js`),
+        pnorm(`${testdata}/foo-bar/foo-03.js`),
+        pnorm(`${testdata}/foo/foo-01`),
+        pnorm(`${testdata}/foo/foo-01/foobar.js`),
+        pnorm(`${testdata}/foo/foo-02`),
+        pnorm(`${testdata}/foo/foo-02/foobar.js`),
+        pnorm(`${testdata}/foo/foo-03`),
+        pnorm(`${testdata}/foo/foo-03/foobar.js`),
+        pnorm(`${testdata}/foo/foobar.js`),
+        pnorm(`${testdata}/foobar.js`),
+        pnorm(`${testdata}/foobar.js.meta`),
+      ],
+      deletes: [
+        pnorm(`${testdata}/egg`),
+        pnorm(`${testdata}/apple`),
+        pnorm(`${testdata}/foobar`),
+        pnorm(`${testdata}/foobar/b`),
+        pnorm(`${testdata}/foobar.meta`),
+        pnorm(`${testdata}/foobar/c`),
+        pnorm(`${testdata}/foobar/a`),
+      ]
+    });
+
+    t.deepEqual(result, {
+      changes: [],
+      creates: [
+        pnorm(`${testdata}/bar`),
+        pnorm(`${testdata}/foo`),
+        pnorm(`${testdata}/foo-bar`),
+        pnorm(`${testdata}/foo-bar.meta`),
+        pnorm(`${testdata}/foobar.js`),
+        pnorm(`${testdata}/foobar.js.meta`),
+      ],
+      deletes: [
+        pnorm(`${testdata}/apple`),
+        pnorm(`${testdata}/egg`),
+        pnorm(`${testdata}/foobar`),
+        pnorm(`${testdata}/foobar.meta`),
+      ]
+    });
+
+    t.end();
+  });
+
   t.end();
 });

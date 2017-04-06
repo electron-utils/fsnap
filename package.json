@@ -1,6 +1,6 @@
 {
   "name": "fsnap",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "Snapshot and compare the target directory.",
   "scripts": {
     "test": "tap test/*.spec.js"
@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/electron-utils/fsnap",
   "dependencies": {
-    "globby": "^6.1.0"
+    "globby": "^6.1.0",
+    "path-plus": "^1.0.0"
   },
   "devDependencies": {
     "fs-jetpack": "^0.13.3",

@@ -3,6 +3,7 @@
 const globby = require ('globby');
 const fs = require ('fs');
 const path_ = require ('path');
+const pathPlus = require ('path-plus');
 
 let fsnap = {};
 
@@ -70,6 +71,62 @@ fsnap.diff = function (s1, s2) {
 
     if (stat1 === undefined) {
       result.creates.push(path);
+    }
+  }
+
+  return result;
+};
+
+/**
+ * @method simplify
+ * @param {object} result - first snapshot
+ */
+fsnap.simplify = function (result) {
+  // deletes
+  result.deletes.sort((a, b) => {
+    return a.localeCompare(b);
+  });
+  for (let i = 0; i < result.deletes.length-1; ++i) {
+    let dir = result.deletes[i];
+
+    for (let c = i+1; c < result.deletes.length; ++c) {
+      let path = result.deletes[c];
+      if (pathPlus.contains(dir, path)) {
+        result.deletes.splice(c,1);
+        --c;
+      }
+    }
+  }
+
+  // changes
+  result.changes.sort((a, b) => {
+    return a.localeCompare(b);
+  });
+  for (let i = 0; i < result.changes.length-1; ++i) {
+    let dir = result.changes[i];
+
+    for (let c = i+1; c < result.changes.length; ++c) {
+      let path = result.changes[c];
+      if (pathPlus.contains(dir, path)) {
+        result.changes.splice(c,1);
+        --c;
+      }
+    }
+  }
+
+  // creates
+  result.creates.sort((a, b) => {
+    return a.localeCompare(b);
+  });
+  for (let i = 0; i < result.creates.length-1; ++i) {
+    let dir = result.creates[i];
+
+    for (let c = i+1; c < result.creates.length; ++c) {
+      let path = result.creates[c];
+      if (pathPlus.contains(dir, path)) {
+        result.creates.splice(c,1);
+        --c;
+      }
     }
   }
 
